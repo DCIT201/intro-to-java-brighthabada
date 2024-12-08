@@ -1,33 +1,47 @@
 import java.util.Scanner;
 
-public class TemperatureConverter{
+public class TemperatureConverter {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        //1. Prompting the user to choose between fahrenheit or celsius
-        System.out.println("Press 1 to convert from fahrenheit to celsius,\nPress 2 to convert from celsius to Fahrenheit: ");
-        int choice = scanner.nextInt();
+        // Prompt the user to choose a conversion option
+        System.out.println("Choose an option:\n1. Convert Celsius to Fahrenheit\n2. Convert Fahrenheit to Celsius");
+        
+        // Validate user's choice
+        int choice;
+        while (true) {
+            System.out.print("Enter 1 or 2: ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice == 1 || choice == 2) {
+                    break;
+                }
+            } 
+            System.out.println("Invalid input. Please enter 1 or 2.");
+            scanner.nextLine(); // Clear the invalid input
+        }
 
-        int result;
-
-        //computing for fahrenheit to celsius
+        // Perform the appropriate conversion
         if (choice == 1) {
-            System.out.println("Input the fahrenheit value: ");
-            int fvalue = scanner.nextInt();
-
-            result = (fvalue - 32) * 5/9;
-            System.out.println(fvalue + " " + "fahrenheits converted to celsius is " + result);
-        } else if (choice == 2) {
-            System.out.println("Input the celsius value: ");
-            int cvalue = scanner.nextInt();
-
-            result = (cvalue * 9/5) + 32;
-            System.out.println(cvalue + " " + "celsius converted to fahrenheits is " + result);
+            System.out.print("Enter the Celsius value: ");
+            if (scanner.hasNextDouble()) {
+                double celsius = scanner.nextDouble();
+                double fahrenheit = (celsius * 9 / 5) + 32;
+                System.out.printf("%.2f°C converted to Fahrenheit is %.2f°F%n", celsius, fahrenheit);
+            } else {
+                System.out.println("Invalid temperature input. Please enter a numeric value.");
+            }
+        } else {
+            System.out.print("Enter the Fahrenheit value: ");
+            if (scanner.hasNextDouble()) {
+                double fahrenheit = scanner.nextDouble();
+                double celsius = (fahrenheit - 32) * 5 / 9;
+                System.out.printf("%.2f°F converted to Celsius is %.2f°C%n", fahrenheit, celsius);
+            } else {
+                System.out.println("Invalid temperature input. Please enter a numeric value.");
+            }
         }
-        else {
-            System.out.println("Restart and chose 1 or 2");
-        }
+
         scanner.close();
     }
 }
-
